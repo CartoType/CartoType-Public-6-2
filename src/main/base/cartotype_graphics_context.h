@@ -150,9 +150,9 @@ class CPattern: public CPaintServer
     {
     public:
     /** Creates a pattern referring to a certain bitmap. Does not take ownership of the bitmap. */
-    CPattern(const TBitmap& aBitmap,int32_t aXOffset,int32_t aYOffset):
+    CPattern(std::shared_ptr<CBitmap> aBitmap,int32_t aXOffset,int32_t aYOffset):
         iBitmap(aBitmap),
-        iColorFunction(aBitmap.ColorFunction()),
+        iColorFunction(aBitmap->ColorFunction()),
         iXOffset(aXOffset),
         iYOffset(aYOffset)
         {
@@ -162,11 +162,10 @@ class CPattern: public CPaintServer
     void SetNightMode(TColor) override { }
 
     private:
-    const TBitmap& iBitmap;
+    std::shared_ptr<CBitmap> iBitmap;
     TBitmap::TColorFunction iColorFunction;
     int32_t iXOffset;
     int32_t iYOffset;
-    std::shared_ptr<CBitmap> iTexture;
     };
 
 /** A paint source containing a color and an optional pointer to a paint server. */

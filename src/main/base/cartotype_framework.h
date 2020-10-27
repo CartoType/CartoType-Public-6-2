@@ -888,7 +888,7 @@ class CFramework: public MNavigatorObserver
     TRouteCreationData iRouteCreationData;
     TPointFP iVehiclePosOffset;
     std::unique_ptr<CTileServer> iTileServer;
-    int32_t iTileServerOverSizeZoomLevels = 1;
+    int32_t iTileServerOverSizeZoomLevels = 2;
     std::unique_ptr<CImageServer> iImageServer;
     std::unique_ptr<CWebMapServiceClient> iWebMapServiceClient;
     std::unique_ptr<CBitmap> iWebMapServiceBitmap;
