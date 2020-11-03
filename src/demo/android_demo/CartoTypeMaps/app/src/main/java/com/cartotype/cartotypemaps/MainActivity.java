@@ -61,9 +61,6 @@ public class MainActivity extends AppCompatActivity
         m_font_filename = font_file.getAbsolutePath();
         createMap(map_file.getAbsolutePath());
 
-        // Display turn instructions.
-        m_framework.setTurnInstructions(true,false, 3, "in", NoticePosition.TopLeft, 12, "pt");
-
         // Create the location provider client.
         m_location_provider_client = new FusedLocationProviderClient(this);
 
@@ -168,6 +165,13 @@ public class MainActivity extends AppCompatActivity
 
         m_map_filename = aMapFilename;
         m_framework = new Framework(this,m_map_filename,m_style_filename,m_font_filename, 256,256);
+
+        // Display turn instructions.
+        m_framework.setTurnInstructions(true,false, 3, "in", NoticePosition.TopLeft, 14, "pt");
+
+        // Set the vehicle position to a quarter of the way up the display.
+        m_framework.setVehiclePosOffset(0,0.25);
+
         m_view = new MainView(this,m_framework);
         setContentView(m_view);
         // Make it impossible to pan outside the map or zoom in closer than the scale 1:1000.
