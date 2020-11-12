@@ -22,24 +22,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let width = bounds.width * scale
         let height = bounds.height * scale
         let param = CartoTypeFrameworkParam()!
-        param.mapFileName = "marches"
+        param.mapFileName = "santa-cruz"
         param.styleSheetFileName = "standard"
         param.fontFileName = "DejaVuSans"
         param.viewWidth = Int32(width)
         param.viewHeight = Int32(height)
         let framework = CartoTypeFramework.init(param: param)!
+        framework.license("mylicensekey")
+        framework.loadFont("DejaVuSerif")
+        framework.loadFont("DejaVuSans-Bold")
+        framework.loadFont("DejaVuSerif-Italic")
         
-        framework.license("QwG8PdzKFaqw");
-        
-        // framework.setNightMode(true);
         framework.setViewLimitsToMinScale(1000, maxScale: 0, panArea: nil);
-        
-        // Uncomment the following line to create walking routes, not driving routes.
-        framework.setMainProfileType(BicycleProfile)
-        
-        // Add a scale bar.
-        framework.setScaleBar(false,width: 1.75,unit: "in",position: NoticePositionBottomLeft)
-
+                
         // Create the view controller.
         let view_controller = ViewController.init(aFrameWork: framework, aBounds:bounds)
         self.window?.rootViewController = view_controller

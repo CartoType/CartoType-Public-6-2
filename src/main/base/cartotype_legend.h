@@ -65,6 +65,8 @@ class CLegend: public MNavigatorObserver
     void SetTurnInstruction(const MString& aText);
     CString TurnInstruction();
     uint32_t Serial() const;
+    std::shared_ptr<CThreadSafeNavigationState> NavigationState() const;
+    void SetNavigationState(std::shared_ptr<CThreadSafeNavigationState> aState);
 
     private:
     void DrawScale(CGraphicsContext& aGc,const CLegendObjectParam& aParam,int32_t aX,int32_t aY,int32_t aWidth,TColor aNightModeColor);
@@ -77,7 +79,7 @@ class CLegend: public MNavigatorObserver
 
     std::unique_ptr<CFramework> m_framework;
     std::vector<CLegendObjectParam> m_object_array;
-    std::unique_ptr<CThreadSafeNavigationState> m_navigation_state;
+    std::shared_ptr<CThreadSafeNavigationState> m_navigation_state;
     TColor m_background_color { KWhite };
     TColor m_border_color { KGray };
     int32_t m_border_width_in_pixels { };

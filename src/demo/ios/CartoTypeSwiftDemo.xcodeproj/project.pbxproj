@@ -11,12 +11,11 @@
 		BF3A33E6216524E500D99379 /* standard.ctstyle in Resources */ = {isa = PBXBuildFile; fileRef = BF3A33E5216524E500D99379 /* standard.ctstyle */; };
 		BF3A33E82165250100D99379 /* DejaVuSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF3A33E72165250100D99379 /* DejaVuSans.ttf */; };
 		BF3EF8A02227EB2B00745FA0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3EF89F2227EB2B00745FA0 /* ViewController.swift */; };
-		BF48380323675EFF0006A242 /* marches.ctm1 in Resources */ = {isa = PBXBuildFile; fileRef = BF48380223675EFF0006A242 /* marches.ctm1 */; };
+		BF728417255B0022004C8092 /* CartoType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF728416255B0022004C8092 /* CartoType.framework */; };
 		BF728A0B1DE1CDC5003219F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF728A0A1DE1CDC4003219F0 /* AppDelegate.swift */; };
 		BF728A101DE1CDC5003219F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF728A0E1DE1CDC5003219F0 /* Main.storyboard */; };
 		BF728A121DE1CDC5003219F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF728A111DE1CDC5003219F0 /* Assets.xcassets */; };
 		BF728A151DE1CDC5003219F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF728A131DE1CDC5003219F0 /* LaunchScreen.storyboard */; };
-		BF79DD222444777800D81409 /* CartoType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF79DD212444777800D81409 /* CartoType.framework */; };
 		BFE6E6921DE3705C00ECF6EF /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6E6911DE3705C00ECF6EF /* libc++.1.tbd */; };
 /* End PBXBuildFile section */
 
@@ -25,7 +24,10 @@
 		BF3A33E5216524E500D99379 /* standard.ctstyle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = standard.ctstyle; path = ../../../style/standard.ctstyle; sourceTree = "<group>"; };
 		BF3A33E72165250100D99379 /* DejaVuSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = DejaVuSans.ttf; path = ../../../font/DejaVuSans.ttf; sourceTree = "<group>"; };
 		BF3EF89F2227EB2B00745FA0 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		BF48380223675EFF0006A242 /* marches.ctm1 */ = {isa = PBXFileReference; lastKnownFileType = file; path = marches.ctm1; sourceTree = "<group>"; };
+		BF728416255B0022004C8092 /* CartoType.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CartoType.framework; sourceTree = "<group>"; };
+		BF72841E255C37B3004C8092 /* DejaVuSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DejaVuSans-Bold.ttf"; path = "../../../font/DejaVuSans-Bold.ttf"; sourceTree = "<group>"; };
+		BF72841F255C37C4004C8092 /* DejaVuSerif.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = DejaVuSerif.ttf; path = ../../../font/DejaVuSerif.ttf; sourceTree = "<group>"; };
+		BF728420255C37D8004C8092 /* DejaVuSerif-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DejaVuSerif-Italic.ttf"; path = "../../../font/DejaVuSerif-Italic.ttf"; sourceTree = "<group>"; };
 		BF728A071DE1CDC4003219F0 /* CartoTypeSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CartoTypeSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF728A0A1DE1CDC4003219F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF728A0F1DE1CDC5003219F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -33,7 +35,6 @@
 		BF728A141DE1CDC5003219F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF728A161DE1CDC5003219F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF728A201DE23048003219F0 /* CartoTypeSwiftDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CartoTypeSwiftDemo-Bridging-Header.h"; sourceTree = "<group>"; };
-		BF79DD212444777800D81409 /* CartoType.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CartoType.framework; sourceTree = "<group>"; };
 		BFE6E6911DE3705C00ECF6EF /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -42,7 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF79DD222444777800D81409 /* CartoType.framework in Frameworks */,
+				BF728417255B0022004C8092 /* CartoType.framework in Frameworks */,
 				BFE6E6921DE3705C00ECF6EF /* libc++.1.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,10 +54,12 @@
 		BF35B0681DEDD4CA0016D835 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BF48380223675EFF0006A242 /* marches.ctm1 */,
-				BF3A33E72165250100D99379 /* DejaVuSans.ttf */,
-				BF3A33E5216524E500D99379 /* standard.ctstyle */,
 				BF35B06D1DEDD5AB0016D835 /* santa-cruz.ctm1 */,
+				BF3A33E5216524E500D99379 /* standard.ctstyle */,
+				BF3A33E72165250100D99379 /* DejaVuSans.ttf */,
+				BF72841E255C37B3004C8092 /* DejaVuSans-Bold.ttf */,
+				BF72841F255C37C4004C8092 /* DejaVuSerif.ttf */,
+				BF728420255C37D8004C8092 /* DejaVuSerif-Italic.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -64,12 +67,12 @@
 		BF7289FE1DE1CDC3003219F0 = {
 			isa = PBXGroup;
 			children = (
-				BF79DD212444777800D81409 /* CartoType.framework */,
+				BF728416255B0022004C8092 /* CartoType.framework */,
 				BFE6E6911DE3705C00ECF6EF /* libc++.1.tbd */,
+				BF728A201DE23048003219F0 /* CartoTypeSwiftDemo-Bridging-Header.h */,
 				BF728A091DE1CDC4003219F0 /* CartoTypeSwiftDemo */,
 				BF35B0681DEDD4CA0016D835 /* Resources */,
 				BF728A081DE1CDC4003219F0 /* Products */,
-				BF728A201DE23048003219F0 /* CartoTypeSwiftDemo-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,7 +130,8 @@
 					BF728A061DE1CDC4003219F0 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = Q566457U5C;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 1110;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -159,7 +163,6 @@
 				BF3A33E82165250100D99379 /* DejaVuSans.ttf in Resources */,
 				BF728A121DE1CDC5003219F0 /* Assets.xcassets in Resources */,
 				BF3A33E6216524E500D99379 /* standard.ctstyle in Resources */,
-				BF48380323675EFF0006A242 /* marches.ctm1 in Resources */,
 				BF728A101DE1CDC5003219F0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,7 +230,9 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -285,7 +290,9 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -324,7 +331,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CartoTypeSwiftDemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -343,7 +350,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = CartoType.CartoTypeSwiftDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CartoTypeSwiftDemo-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

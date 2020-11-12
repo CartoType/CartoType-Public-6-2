@@ -1722,6 +1722,7 @@ void CCartoTypeDemoView::OnViewMetricUnits()
     iFramework->SetLocale(iMetricUnits ? "en_xx" : "en");
     CreateLegend();
     iFramework->SetScaleBar(iMetricUnits,2.5,"in",CartoType::TNoticePosition::BottomLeft);
+    iFramework->SetTurnInstructions(iMetricUnits,true,2,"in",CartoType::TNoticePosition::TopLeft);
     if (iDrawLegend || iDrawTurnInstructions)
         {
         iFramework->ForceRedraw();
