@@ -10,10 +10,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -74,9 +77,13 @@ public class MainActivity extends AppCompatActivity
                     return;
                 for (Location loc : aResult.getLocations())
                     {
+                    if (!hasRoute() && !m_tracking)
+                        m_view.setRouteStart(loc.getLongitude(), loc.getLatitude());
                     m_framework.navigate(Framework.TIME_VALID | Framework.POSITION_VALID,
                             loc.getElapsedRealtimeNanos() / 1000000000.0, loc.getLongitude(), loc.getLatitude(),0,0,0);
                     }
+                if (!hasRoute() && !m_tracking)
+                    stopNavigating();
                 }
             };
         }
@@ -100,7 +107,7 @@ public class MainActivity extends AppCompatActivity
             boolean has_route = hasRoute();
             MenuItem track = aMenu.findItem(R.id.view_track_location);
             track.setEnabled(!has_route);
-            track.setChecked(!has_route && m_navigating);
+            track.setChecked(m_tracking);
 
             aMenu.findItem(R.id.view_scale).setChecked(m_has_scale_bar);
             aMenu.findItem(R.id.view_north_up).setEnabled(m_framework != null && m_framework.getRotation() != 0);
@@ -109,14 +116,123 @@ public class MainActivity extends AppCompatActivity
             aMenu.findItem(R.id.view_3d_buildings).setChecked(m_framework != null && m_framework.getDraw3DBuildings());
             aMenu.findItem(R.id.view_night_mode).setChecked(m_framework != null && m_framework.getNightMode());
 
-            aMenu.findItem(R.id.route_reverse).setEnabled(has_route);
-            aMenu.findItem(R.id.route_delete).setEnabled(has_route);
-
             MenuItem nav = aMenu.findItem(R.id.route_navigate);
             nav.setEnabled(has_route);
             nav.setChecked(has_route && m_navigating);
+
+            aMenu.findItem(R.id.route_from_here).setEnabled(m_view.hasDestination());
+            aMenu.findItem(R.id.route_reverse).setEnabled(has_route);
+            aMenu.findItem(R.id.route_delete).setEnabled(has_route);
             }
         return super.onPrepareOptionsMenu(aMenu);
+        }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem aItem)
+        {
+        int id = aItem.getItemId();
+        switch (id)
+            {
+            case R.id.file_open_builtin:
+                chooseFile(getDir("localAssets",Context.MODE_PRIVATE).getPath(),false);
+                return true;
+            case R.id.file_open_app:
+                chooseFile(getExternalFilesDir(null).getPath(),true);
+                return true;
+            case R.id.file_open_doc:
+                chooseFile(Environment.getExternalStorageDirectory().getPath() + "/Documents/CartoType/maps",true);
+                return true;
+
+            case R.id.find_find:
+                findPlace();
+                return true;
+            case R.id.find_address:
+                findAddress();
+                return true;
+            case R.id.find_ignore_symbols:
+                m_ignore_symbols = !aItem.isChecked();
+                return true;
+            case R.id.find_fuzzy:
+                m_fuzzy = !aItem.isChecked();
+                return true;
+
+            case R.id.view_track_location:
+                if (m_navigating)
+                    stopNavigating();
+                else
+                    {
+                    m_framework.setFollowMode(Framework.FOLLOW_MODE_LOCATION);
+                    m_tracking = true;
+                    startNavigating();
+                    }
+                return true;
+
+            case R.id.view_scale:
+                setScaleBar(!aItem.isChecked());
+                return true;
+            case R.id.view_north_up:
+                m_framework.setRotation(0);
+                return true;
+            case R.id.view_perspective:
+                m_framework.setPerspective(!aItem.isChecked());
+                return true;
+            case R.id.view_metric:
+                setMetricUnits(!aItem.isChecked());
+                return true;
+            case R.id.view_3d_buildings:
+                m_framework.setDraw3DBuildings(!aItem.isChecked());
+                return true;
+            case R.id.view_night_mode:
+                m_framework.setNightMode(!aItem.isChecked());
+                return true;
+
+            case R.id.route_navigate:
+                if (m_navigating)
+                    stopNavigating();
+                else
+                    {
+                    m_framework.setFollowMode(Framework.FOLLOW_MODE_LOCATION_HEADING_ZOOM);
+                    startNavigating();
+                    }
+                return true;
+            case R.id.route_from_here:
+                stopNavigating();
+                m_framework.setFollowMode(Framework.FOLLOW_MODE_LOCATION_HEADING_ZOOM);
+                startNavigating();
+                return true;
+            case R.id.route_reverse:
+                m_view.reverseRoute();
+                stopNavigating();
+                return true;
+            case R.id.route_delete:
+                m_view.deleteRoute();
+                stopNavigating();
+                return true;
+            case R.id.route_drive:
+                aItem.setChecked(true);
+                m_view.setRouteProfileType(RouteProfileType.Car);
+                return true;
+            case R.id.route_cycle:
+                aItem.setChecked(true);
+                m_view.setRouteProfileType(RouteProfileType.Cycle);
+                return true;
+            case R.id.route_walk:
+                aItem.setChecked(true);
+                m_view.setRouteProfileType(RouteProfileType.Walk);
+                return true;
+            case R.id.route_hike:
+                aItem.setChecked(true);
+                m_view.setRouteProfileType(RouteProfileType.Hike);
+                return true;
+            }
+        return super.onOptionsItemSelected(aItem);
+        }
+
+    @Override
+    public void onConfigurationChanged(Configuration aNewConfig)
+        {
+        super.onConfigurationChanged(aNewConfig);
+        createScaleBarAndTurnInstructions();
         }
 
     private void warn(String aTitle,String aText)
@@ -176,7 +292,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(m_view);
         // Make it impossible to pan outside the map or zoom in closer than the scale 1:1000.
         m_framework.setViewLimits(1000,0,null);
-        createScaleBar();
+        createScaleBarAndTurnInstructions();
         }
 
     void chooseFile(final String aDirectory,boolean aPermissionNeeded)
@@ -360,102 +476,6 @@ public class MainActivity extends AppCompatActivity
         find_address_builder.show();
         }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem aItem)
-        {
-        int id = aItem.getItemId();
-        switch (id)
-            {
-            case R.id.file_open_builtin:
-                chooseFile(getDir("localAssets",Context.MODE_PRIVATE).getPath(),false);
-                return true;
-            case R.id.file_open_app:
-                chooseFile(getExternalFilesDir(null).getPath(),true);
-                return true;
-            case R.id.file_open_doc:
-                chooseFile(Environment.getExternalStorageDirectory().getPath() + "/Documents/CartoType/maps",true);
-                return true;
-
-            case R.id.find_find:
-                findPlace();
-                return true;
-            case R.id.find_address:
-                findAddress();
-                return true;
-            case R.id.find_ignore_symbols:
-                m_ignore_symbols = !aItem.isChecked();
-                return true;
-            case R.id.find_fuzzy:
-                m_fuzzy = !aItem.isChecked();
-                return true;
-
-            case R.id.view_track_location:
-                if (m_navigating)
-                    stopNavigating();
-                else
-                    {
-                    m_framework.setFollowMode(Framework.FOLLOW_MODE_LOCATION);
-                    startNavigating();
-                    }
-                return true;
-
-            case R.id.view_scale:
-                setScaleBar(!aItem.isChecked());
-                return true;
-            case R.id.view_north_up:
-                m_framework.setRotation(0);
-                return true;
-            case R.id.view_perspective:
-                m_framework.setPerspective(!aItem.isChecked());
-                return true;
-            case R.id.view_metric:
-                setMetricUnits(!aItem.isChecked());
-                return true;
-            case R.id.view_3d_buildings:
-                m_framework.setDraw3DBuildings(!aItem.isChecked());
-                return true;
-            case R.id.view_night_mode:
-                m_framework.setNightMode(!aItem.isChecked());
-                return true;
-
-            case R.id.route_navigate:
-                if (m_navigating)
-                    stopNavigating();
-                else
-                    {
-                    m_framework.setFollowMode(Framework.FOLLOW_MODE_LOCATION_HEADING_ZOOM);
-                    startNavigating();
-                    }
-                return true;
-            case R.id.route_reverse:
-                m_view.reverseRoute();
-                if (!hasRoute())
-                    m_navigating = false;
-                return true;
-            case R.id.route_delete:
-                m_view.deleteRoute();
-                m_navigating = false;
-                return true;
-            case R.id.route_drive:
-                aItem.setChecked(true);
-                m_view.setRouteProfileType(RouteProfileType.Car);
-                return true;
-            case R.id.route_cycle:
-                aItem.setChecked(true);
-                m_view.setRouteProfileType(RouteProfileType.Cycle);
-                return true;
-            case R.id.route_walk:
-                aItem.setChecked(true);
-                m_view.setRouteProfileType(RouteProfileType.Walk);
-                return true;
-            case R.id.route_hike:
-                aItem.setChecked(true);
-                m_view.setRouteProfileType(RouteProfileType.Hike);
-                return true;
-            }
-        return super.onOptionsItemSelected(aItem);
-        }
-
     private File getCopyOfFile(String aAssetPath, String aAssetFile) throws IOException
         {
         File dir = getDir("localAssets",Context.MODE_PRIVATE);
@@ -495,7 +515,7 @@ public class MainActivity extends AppCompatActivity
             warn("Location Permission Needed","To enable navigation, add the Location permission to this app.");
             return;
             }
-        
+
         confirm("NAVIGATION IS FOR TESTING ONLY AND NOT INTENDED FOR ACTUAL ROUTE GUIDANCE", "Press OK to confirm.", new Function<Void,Void>()
             {
             @SuppressLint("MissingPermission")
@@ -507,6 +527,7 @@ public class MainActivity extends AppCompatActivity
                 m_location_request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
                 m_location_provider_client.requestLocationUpdates(m_location_request, m_location_callback, Looper.getMainLooper());
                 m_framework.enableTurnInstructions(true);
+                m_framework.enableLayer("route-vector",true);
                 m_navigating = true;
                 return null;
                 }
@@ -516,9 +537,11 @@ public class MainActivity extends AppCompatActivity
     void stopNavigating()
         {
         m_navigating = false;
+        m_tracking = false;
         m_location_request = null;
         m_location_provider_client.removeLocationUpdates(m_location_callback);
         m_framework.enableTurnInstructions(false);
+        m_framework.enableLayer("route-vector",false);
         }
 
     void setMetricUnits(boolean aEnable)
@@ -527,14 +550,20 @@ public class MainActivity extends AppCompatActivity
             {
             m_metric_units = aEnable;
             m_framework.setLocale(m_metric_units ? "en_xx" : "en");
-            createScaleBar();
+            createScaleBarAndTurnInstructions();
             m_framework.enableScaleBar(m_has_scale_bar);
             }
         }
 
-    void createScaleBar()
+    void createScaleBarAndTurnInstructions()
         {
-        m_framework.setScaleBar(m_metric_units,3,"in",NoticePosition.BottomLeft);
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        double width_in_inches = (double)metrics.widthPixels / (double)metrics.xdpi;
+        width_in_inches *= 0.8;
+        if (width_in_inches > 3.0)
+            width_in_inches = 3.0;
+        m_framework.setScaleBar(m_metric_units,width_in_inches,"in",NoticePosition.BottomLeft);
+        m_framework.setTurnInstructions(m_metric_units,false, width_in_inches, "in", NoticePosition.TopLeft, 14, "pt");
         }
 
     void setScaleBar(boolean aEnable)
@@ -562,4 +591,5 @@ public class MainActivity extends AppCompatActivity
     private LocationRequest m_location_request;
     private LocationCallback m_location_callback;
     private boolean m_navigating = false;
+    private boolean m_tracking = false;
     }

@@ -30,6 +30,7 @@
         <menu>
             <group android:id="@+id/route_navigate_group">
                 <item android:id="@+id/route_navigate" android:title="Navigate Route" android:enabled="false" android:checkable="true" android:checked="false"/>
+                <item android:id="@+id/route_from_here" android:title="Route from Here" android:enabled="false"/>
                 <item android:id="@+id/route_reverse" android:title="Reverse Route" android:enabled="false"/>
                 <item android:id="@+id/route_delete" android:title="Delete Route" android:enabled="false"/>
             </group>

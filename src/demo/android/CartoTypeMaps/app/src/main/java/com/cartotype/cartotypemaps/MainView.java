@@ -98,6 +98,18 @@ public class MainView extends MapView implements DialogInterface.OnClickListener
         m_end_x = 0; m_end_y = 0;
         }
 
+    void setRouteStart(double aX,double aY)
+        {
+        m_start_x = aX;
+        m_start_y = aY;
+        calculateAndDisplayRoute();
+        }
+
+    boolean hasDestination()
+        {
+        return m_end_x != 0 && m_end_y != 0;
+        }
+
     private Framework m_framework;
     private double m_cur_x;
     private double m_cur_y;
