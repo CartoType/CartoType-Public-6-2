@@ -42,4 +42,9 @@
             </group>
         </menu>
     </item>
+    <item android:id="@+id/help" android:title="Help">
+        <menu>
+            <item android:id="@+id/help_about" android:title="About CartoType Maps..."/>
+        </menu>
+    </item>
 </menu>

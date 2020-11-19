@@ -224,6 +224,10 @@ public class MainActivity extends AppCompatActivity
                 aItem.setChecked(true);
                 m_view.setRouteProfileType(RouteProfileType.Hike);
                 return true;
+
+            case R.id.help_about:
+                showAboutMessage();
+                return true;
             }
         return super.onOptionsItemSelected(aItem);
         }
@@ -233,6 +237,23 @@ public class MainActivity extends AppCompatActivity
         {
         super.onConfigurationChanged(aNewConfig);
         createScaleBarAndTurnInstructions();
+        }
+
+    private void showAboutMessage()
+        {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("About CartoType Maps");
+        String message = "This application demonstrates the CartoType mapping and routing library. See cartotype.com for more information about creating maps and using CartoType in your application.";
+        message += " \n\nCreated using CartoType " + Framework.version() + "." + Framework.build() + ".";
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
+            {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+                {
+                }
+            });
+        builder.show();
         }
 
     private void warn(String aTitle,String aText)
