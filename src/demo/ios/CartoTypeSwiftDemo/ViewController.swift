@@ -219,10 +219,14 @@ class ViewController: CartoTypeViewController, UISearchBarDelegate, CLLocationMa
         cs.append(end)
         let error = m_framework.startNavigation(cs)
         let errorcode = CartoTypeResultCode(rawValue: UInt32(error))
-        m_navigate_button.isEnabled = errorcode == CTErrorNone
+        m_navigate_button.isEnabled = false
         switch (errorcode)
             {
-            case CTErrorNone: break
+            case CTErrorNone:
+                stopNavigating()
+                m_tracking = false;
+                m_navigate_button.isEnabled = true;
+                break
             case CTErrorNoRoadsNearStartOfRoute: showError("no roads near start of route"); break
             case CTErrorNoRoadsNearEndOfRoute: showError("no roads near end of route"); break
             case CTErrorNoRouteConnectivity: showError("start and end are not connected"); break
@@ -516,17 +520,19 @@ class ViewController: CartoTypeViewController, UISearchBarDelegate, CLLocationMa
         {
         if (m_framework.getRouteCount() == 0)
             {
-            self.m_location_manager.startUpdatingLocation()
+            m_location_manager.startUpdatingLocation()
             UIApplication.shared.isIdleTimerDisabled = true  // stop screen going to sleep
             m_framework.setFollowMode(FollowModeLocation)
+            m_framework.enableLayer("route-vector")
             m_tracking = true
             }
         }
         
     func stopTracking()
         {
-        self.m_location_manager.stopUpdatingLocation()
+        m_location_manager.stopUpdatingLocation()
         UIApplication.shared.isIdleTimerDisabled = false
+        m_framework.disableLayer("route-vector")
         m_tracking = false
         }
         
@@ -544,6 +550,7 @@ class ViewController: CartoTypeViewController, UISearchBarDelegate, CLLocationMa
                 self.m_search_bar.isHidden = true
                 self.m_framework.enableTurnInstructions(true)
                 self.m_framework.setFollowMode(FollowModeLocationHeadingZoom)
+                self.m_framework.enableLayer("route-vector")
                 self.m_navigating = true
                 self.m_tracking = false
                 }))
@@ -565,6 +572,7 @@ class ViewController: CartoTypeViewController, UISearchBarDelegate, CLLocationMa
             }
         m_restore_search_bar = false;
         m_framework.enableTurnInstructions(false)
+        m_framework.disableLayer("route-vector")
         m_navigating = false
         }
 
