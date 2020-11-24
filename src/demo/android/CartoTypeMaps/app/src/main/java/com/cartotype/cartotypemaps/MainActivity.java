@@ -171,7 +171,9 @@ public class MainActivity extends AppCompatActivity
                 setScaleBar(!aItem.isChecked());
                 return true;
             case R.id.view_north_up:
+                m_framework.setAnimateTransitions(true);
                 m_framework.setRotation(0);
+                m_framework.setAnimateTransitions(false);
                 return true;
             case R.id.view_perspective:
                 m_framework.setPerspective(!aItem.isChecked());
@@ -303,8 +305,26 @@ public class MainActivity extends AppCompatActivity
         m_map_filename = aMapFilename;
         m_framework = new Framework(this,m_map_filename,m_style_filename,m_font_filename, 256,256);
 
-        // Display turn instructions.
-        m_framework.setTurnInstructions(true,false, 3, "in", NoticePosition.TopLeft, 14, "pt");
+        // License the framework. Replace 'mylicensekey' with a valid license key if you are a licensee.
+        m_framework.license("mylicensekey");
+
+        // Start loading navigation data in a background thread.
+        m_framework.loadNavigationData();
+
+        // Load extra fonts.
+        try
+            {
+            String font1 = getCopyOfFile("DejaVuSans-Bold.ttf", "DejaVuSans-Bold.ttf").getAbsolutePath();
+            m_framework.loadFont(font1);
+            String font2 = getCopyOfFile("DejaVuSerif.ttf", "DejaVuSerif.ttf").getAbsolutePath();
+            m_framework.loadFont(font2);
+            String font3 = getCopyOfFile("DejaVuSerif-Italic.ttf", "DejaVuSerif-Italic.ttf").getAbsolutePath();
+            m_framework.loadFont(font3);
+            }
+        catch (Exception e)
+            {
+            Log.d("CartoType","failed to open font file");
+            }
 
         // Set the vehicle position to a quarter of the way up the display.
         m_framework.setVehiclePosOffset(0,0.25);

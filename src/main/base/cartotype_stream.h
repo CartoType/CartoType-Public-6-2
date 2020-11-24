@@ -407,7 +407,7 @@ class CBinaryInputFile
         int64_t pos = _lseeki64(iFile,aOffset,aOrigin);
 #elif defined(__APPLE__)
         int64_t pos = lseek(iFile,aOffset,aOrigin);
-#elif defined(_POSIX_VERSION)
+#elif (defined(_POSIX_VERSION) || defined(__MINGW32__))
         int64_t pos = lseek64(iFile,aOffset,aOrigin);
 #else
         int64_t pos = -1;
@@ -424,7 +424,7 @@ class CBinaryInputFile
         return _telli64(iFile);
 #elif defined (__APPLE__)
         return lseek(iFile,SEEK_SET,0);
-#elif defined(_POSIX_VERSION)
+#elif (defined(_POSIX_VERSION) || defined(__MINGW32__))
         return lseek64(iFile,SEEK_SET,0);
 #else
         return lseek(iFile,SEEK_SET,0);
@@ -471,7 +471,7 @@ class CBinaryInputFile
         e = _fseeki64(iFile,aOffset,aOrigin);
 #elif defined(__APPLE__)
         e = fseeko(iFile,aOffset,aOrigin);
-#elif (defined(_POSIX_VERSION) && !defined(ANDROID) && !defined(__ANDROID__))
+#elif ((defined(_POSIX_VERSION) || defined(__MINGW32__)) && !defined(ANDROID) && !defined(__ANDROID__))
         e = fseeko64(iFile,aOffset,aOrigin);
 #else
         if (aOffset < INT32_MIN)
@@ -490,7 +490,7 @@ class CBinaryInputFile
         return _ftelli64(iFile);
 #elif defined (__APPLE__)
         return ftello(iFile);
-#elif (defined(_POSIX_VERSION) && !defined(ANDROID) && !defined(__ANDROID__))
+#elif ((defined(_POSIX_VERSION) || defined(__MINGW32__)) && !defined(ANDROID) && !defined(__ANDROID__))
         return ftello64(iFile);
 #else
         return ftell(iFile);
@@ -720,7 +720,7 @@ inline int FileSeek(FILE* aFile,int64_t aOffset,int aOrigin)
     return _fseeki64(aFile,aOffset,aOrigin);
 #elif defined(__APPLE__)
     return fseeko(aFile,aOffset,aOrigin);
-#elif (defined(_POSIX_VERSION) && !defined(ANDROID) && !defined(__ANDROID__))
+#elif ((defined(_POSIX_VERSION) || defined(__MINGW32__)) && !defined(ANDROID) && !defined(__ANDROID__))
     return fseeko64(aFile,aOffset,aOrigin);
 #else
     if (aOffset < INT32_MIN)
@@ -741,7 +741,7 @@ inline int64_t FileTell(FILE* aFile)
     return _ftelli64(aFile);
 #elif defined (__APPLE__)
     return ftello(aFile);
-#elif (defined(_POSIX_VERSION) && !defined(ANDROID) && !defined(__ANDROID__))
+#elif ((defined(_POSIX_VERSION) || defined(__MINGW32__)) && !defined(ANDROID) && !defined(__ANDROID__))
     return ftello64(aFile);
 #else
     return ftell(aFile);

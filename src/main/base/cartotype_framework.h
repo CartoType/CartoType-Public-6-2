@@ -23,6 +23,7 @@ See www.cartotype.com for more information.
 
 #include <memory>
 #include <set>
+#include <future>
 
 namespace CartoType
 {
@@ -818,6 +819,7 @@ class CFramework: public MNavigatorObserver
     TResult CreateTileServer(int32_t aTileWidthInPixels,int32_t aTileHeightInPixels);
     TResult SetRoutePositionAndVector(const TPoint& aPos,const TPoint& aVector);
     TResult CreateNavigator();
+    void InstallNavigator(std::unique_ptr<CNavigator> aNavigator);
     void SetCameraParam(TCameraParam& aCameraParam,double aViewWidth,double aViewHeight);
     TResult InsertMapObject(uint32_t aMapHandle,const CString& aLayerName,const MPath& aGeometry,
                             const CString& aStringAttributes,uint32_t aIntAttribute,uint64_t& aId,bool aReplace);
@@ -848,7 +850,7 @@ class CFramework: public MNavigatorObserver
     std::shared_ptr<CFrameworkEngine> iEngine;
     std::shared_ptr<CFrameworkMapDataSet> iMapDataSet;
     std::vector<CStyleSheetData> iStyleSheetData;
-    std::unique_ptr<CMap> iMap;
+    std::shared_ptr<CMap> iMap;
     std::unique_ptr<CMapDrawParam> iMapDrawParam;
     std::unique_ptr<C32BitColorBitmapGraphicsContext> iGc;
     std::unique_ptr<CPerspectiveGraphicsContext> iPerspectiveGc;
@@ -867,6 +869,7 @@ class CFramework: public MNavigatorObserver
     bool iPerspective = false;
     bool iUseSerializedNavigationData = true;
     TRouterType iPreferredRouterType = TRouterType::Default;
+    std::future<std::pair<TResult,std::unique_ptr<CNavigator>>> iNavigatorFuture;
     std::unique_ptr<CNavigator> iNavigator;
     std::vector<std::weak_ptr<MNavigatorObserver>> iNavigatorObservers;
     std::vector<uint64_t> iRouteObjects;
