@@ -177,7 +177,6 @@
 #define ID_ROUTE_CYCLE                  32829
 #define ID_ROUTE_WALK                   32830
 #define ID_ROUTE_HIKE                   32831
-#define ID_ROUTE_DELETEROUTE            32832
 #define ID_ROUTE_DELETE_ROUTE           32833
 #define ID_ROUTE_SAVEROUTEASXML         32834
 #define ID_ROUTE_SAVEROUTEASGPX         32835
@@ -190,13 +189,14 @@
 #define ID_ROUTE_SAVE_INSTRUCTIONS      32842
 #define ID_ROUTE_SHORTEST               32844
 #define ID_ROUTE_USEGRADIENTS           32845
+#define ID_ROUTE_REVERSE_ROUTE          32848
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        312
-#define _APS_NEXT_COMMAND_VALUE         32846
+#define _APS_NEXT_COMMAND_VALUE         32849
 #define _APS_NEXT_CONTROL_VALUE         1080
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

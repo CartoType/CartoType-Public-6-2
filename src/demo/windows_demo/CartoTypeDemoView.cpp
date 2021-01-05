@@ -83,6 +83,8 @@ BEGIN_MESSAGE_MAP(CCartoTypeDemoView, CView)
     ON_UPDATE_COMMAND_UI(ID_VIEW_FLY_THROUGH,&CCartoTypeDemoView::OnUpdateViewFlyThrough)
     ON_COMMAND(ID_GO_ALONG_ROUTE,&CCartoTypeDemoView::OnGoAlongRoute)
     ON_UPDATE_COMMAND_UI(ID_GO_ALONG_ROUTE,&CCartoTypeDemoView::OnUpdateGoAlongRoute)
+    ON_COMMAND(ID_ROUTE_REVERSE_ROUTE,&CCartoTypeDemoView::OnReverseRoute)
+    ON_UPDATE_COMMAND_UI(ID_ROUTE_REVERSE_ROUTE,&CCartoTypeDemoView::OnUpdateReverseRoute)
     ON_COMMAND(ID_ROUTE_DELETE_ROUTE,&CCartoTypeDemoView::OnDeleteRoute)
     ON_UPDATE_COMMAND_UI(ID_ROUTE_DELETE_ROUTE,&CCartoTypeDemoView::OnUpdateDeleteRoute)
     ON_COMMAND(ID_ROUTE_DRIVE,&CCartoTypeDemoView::OnSetDriveProfile)
@@ -1005,6 +1007,9 @@ void CCartoTypeDemoView::OnInitialUpdate()
         return;
         }
 
+    // Start loading navigation data asynchronously.
+    iFramework->LoadNavigationData();
+
     // Check the extent.
     double min_long,min_lat,max_long,max_lat;
     error = iFramework->GetMapExtent(min_long,min_lat,max_long,max_lat,CartoType::TCoordType::Degree);
@@ -1808,6 +1813,19 @@ void CCartoTypeDemoView::OnGoAlongRoute()
 void CCartoTypeDemoView::OnUpdateGoAlongRoute(CCmdUI *pCmdUI)
     {
     pCmdUI->Enable(iFramework->Navigating());
+    }
+
+void CCartoTypeDemoView::OnReverseRoute()
+    {
+    std::reverse(iRoutePointArray.begin(),iRoutePointArray.end());
+    if (iRoutePointArray[0].iPoint.iPoint != CartoType::TPointFP() &&
+        iRoutePointArray[iRoutePointArray.size() - 1].iPoint.iPoint != CartoType::TPointFP())
+        CalculateAndDisplayRoute();
+    }
+
+void CCartoTypeDemoView::OnUpdateReverseRoute(CCmdUI* pCmdUI)
+    {
+    pCmdUI->Enable(iFramework->Route() != nullptr);
     }
 
 void CCartoTypeDemoView::OnDeleteRoute()

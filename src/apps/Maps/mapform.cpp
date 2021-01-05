@@ -76,6 +76,9 @@ MapForm::MapForm(QWidget* aParent,MainWindow& aMainWindow,const QString& aMapFil
         return;
         }
 
+    // Start an async task to load navigation data.
+    m_framework->LoadNavigationData();
+
     // Prevent panning beyond the map extent, and zooming in further than 1:1000.
     m_framework->SetViewLimits(1000,0);
 
@@ -1075,6 +1078,7 @@ void MapForm::SetPreferredRouterType(CartoType::TRouterType aRouterType)
     if (aRouterType != m_framework->PreferredRouterType())
         {
         m_framework->SetPreferredRouterType(aRouterType);
+        m_framework->LoadNavigationData();
         CalculateAndDisplayRoute();
         update();
         }

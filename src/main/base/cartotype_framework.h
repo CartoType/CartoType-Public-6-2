@@ -23,7 +23,6 @@ See www.cartotype.com for more information.
 
 #include <memory>
 #include <set>
-#include <future>
 
 namespace CartoType
 {
@@ -76,6 +75,7 @@ class TMapTransform;
 class CMapRendererImplementation;
 class CAsyncFinder;
 class CAsyncRouter;
+class CNavigatorFuture;
 
 namespace Router
     {
@@ -869,7 +869,7 @@ class CFramework: public MNavigatorObserver
     bool iPerspective = false;
     bool iUseSerializedNavigationData = true;
     TRouterType iPreferredRouterType = TRouterType::Default;
-    std::future<std::pair<TResult,std::unique_ptr<CNavigator>>> iNavigatorFuture;
+    std::unique_ptr<CNavigatorFuture> iNavigatorFuture;
     std::unique_ptr<CNavigator> iNavigator;
     std::vector<std::weak_ptr<MNavigatorObserver>> iNavigatorObservers;
     std::vector<uint64_t> iRouteObjects;

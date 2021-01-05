@@ -159,8 +159,10 @@ protected:
     afx_msg void OnUpdateViewFlyThrough(CCmdUI *pCmdUI);
     afx_msg void OnGoAlongRoute();
     afx_msg void OnUpdateGoAlongRoute(CCmdUI *pCmdUI);
+    afx_msg void OnReverseRoute();
+    afx_msg void OnUpdateReverseRoute(CCmdUI* pCmdUI);
     afx_msg void OnDeleteRoute();
-    afx_msg void OnUpdateDeleteRoute(CCmdUI *pCmdUI);
+    afx_msg void OnUpdateDeleteRoute(CCmdUI* pCmdUI);
     afx_msg void OnSetDriveProfile();
     afx_msg void OnUpdateSetDriveProfile(CCmdUI *pCmdUI);
     afx_msg void OnSetCycleProfile();

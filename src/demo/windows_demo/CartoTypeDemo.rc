@@ -164,6 +164,7 @@ BEGIN
         MENUITEM "Show Turn Instructions",      ID_VIEW_DRIVING_INSTRUCTIONS
         MENUITEM "Fly Through Route\tY",        ID_VIEW_FLY_THROUGH
         MENUITEM "Go Along Route\tA",           ID_GO_ALONG_ROUTE
+        MENUITEM "Reverse Route",               ID_ROUTE_REVERSE_ROUTE
         MENUITEM "Delete Route",                ID_ROUTE_DELETE_ROUTE
         MENUITEM SEPARATOR
         MENUITEM "Drive",                       ID_ROUTE_DRIVE, CHECKED

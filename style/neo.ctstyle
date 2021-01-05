@@ -614,7 +614,7 @@ For more information see http://www.cartotype.com.
 
                 <!-- MOTORWAY LINK -->
                 <condition exp='RoadType == "motorway link"'>
-                    <line width='10m6000_60m@75000,0.6pt' fill='#E65C5C'/>
+                    <line width='10m@6000_60m@75000,0.6pt' fill='#E65C5C'/>
                     <macro ref='standard-tunnel'/>
                 </condition>
 
