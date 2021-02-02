@@ -1025,7 +1025,7 @@ class TLocationMatchParam
     double iHeadingAccuracyInDegrees = 0;
     /**
     The expected maximum distance of a road from the current location.
-    It is clamped to the range 5 ... 1000.
+    It is clamped to the range 5 ... 10,000.
     A value of zero indicates the default value: 100.
     */
     double iMaxRoadDistanceInMeters = 0;

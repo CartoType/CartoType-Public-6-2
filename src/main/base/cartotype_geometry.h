@@ -75,7 +75,7 @@ template<class point_t> class CGeneralGeometry
                 p.iX = Round(q.iX);
                 p.iY = Round(q.iY);
                 p.iType = q.iType;
-                c.AppendPoint(p);
+                c.AppendPointEvenIfSame(p);
                 }
             }
         return outline;

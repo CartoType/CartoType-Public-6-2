@@ -891,7 +891,7 @@ For more information see http://www.cartotype.com.
             <line fill='ncsred' opacity='0.5' width='5m,0.6pt'/>
         </condition>
     </layer>
-    <layer name='gpx'>
+    <layer name='gpx' roadflags='#F000'>
         <line fill='ncsred' width='2m,1pt'/>
         <label baseline='text-after-edge' case='title' color='ncsred' font-size='6pt'/>
     </layer>

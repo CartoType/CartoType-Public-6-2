@@ -1047,7 +1047,7 @@ For more information see http://www.cartotype.com.
         </layer>
     </zoom>
 
-    <layer name='gpx'>
+    <layer name='gpx' roadflags='#F000'>
         <line width='2m,1pt' fill='ncsred'/>
         <label color='ncsred' font-size='6pt' baseline='text-after-edge' case='title'/>
     </layer>
