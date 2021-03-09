@@ -22,6 +22,5 @@ MapChildWindow::~MapChildWindow()
 
 void MapChildWindow::SetView(const CartoType::TViewState& aViewState)
     {
-    resize(aViewState.iWidthInPixels,aViewState.iHeightInPixels);
     m_map_form->SetView(aViewState);
     }
